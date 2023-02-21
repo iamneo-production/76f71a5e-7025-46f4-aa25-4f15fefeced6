@@ -1,0 +1,266 @@
+<!DOCTYPE html><html>
+<head>
+    <title>Central Authentication Service | Bhuvan</title>
+    <meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1"/><!--<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">CAS &#8211; Central Authentication Service</title>--><link rel="stylesheet" href="/cas/webjars/font-awesome/4.7.0/css/font-awesome.min.css"/><link type="text/css" rel="stylesheet" href="/cas/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/><link type="text/css" rel="stylesheet" href="/cas/webjars/lato/0.3.0/css/lato.min.css"/><link rel="stylesheet" href="/cas/css/cas_07072021.css"/><link rel="icon" href="/cas/favicon.ico" type="image/x-icon"/><script type="text/javascript" src="/cas/webjars/zxcvbn/4.3.0/zxcvbn.js"></script>
+    <script type="text/javascript" src="/cas/webjars/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/cas/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/cas/webjars/jquery-cookie/1.4.1-1/jquery.cookie.js"></script>
+    <script src="/cas/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+
+    <script>
+        /*<![CDATA[*/
+
+        //var trackGeoLocation = /*false*/ === "true";
+
+        //var googleAnalyticsTrackingId = /*null*/;
+
+        /*if (googleAnalyticsTrackingId != null && googleAnalyticsTrackingId != '') {
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', googleAnalyticsTrackingId, 'auto');
+            ga('send', 'pageview');
+        } */
+
+        /*]]>*/
+    </script>
+</head>
+
+<body id="cas" class="login">
+<div id="container" class="container">
+    <div id="banner">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0"  height="60px">
+			<tr>
+				<td width="52%" height="60px" valign="top">
+					<a href='http://bhuvan.nrsc.gov.in/bhuvan_links.php'>
+						<img border=0  src="img_ql/bhuvan_viewer3t3.png" style='float:left; padding-left:5px;  vertical-align:middle'></a>
+				</td>               
+				<td width="30%" height="50px"></td>
+				<td width="52%" height="60px" valign="top">
+					<img border=0  src="img_ql/bhuvan_viewer3t2.png" style='float:right; padding-right:5px; vertical-align:middle'></td>               
+			</tr>
+		</table>
+		</div>
+	
+		<div id="bannerstrip">
+		<table width="100%" height="25px">
+		<tr bgcolor="#6495ED">
+			<td width="60%"></td>
+			<td width="40%">
+			</td>
+		</tr>
+		</table>
+		</div>
+		
+		
+<!--<header>
+    <a id="logo" href="http://www.apereo.org" th:title="#{logo.title}">Apereo</a>
+    <h1>Apereo Central Authentication Service (CAS)</h1> 
+</header>--><div id="content">
+        <div class="row">
+            <div id="notices" class="col-sm-12 col-md-6 col-md-push-6">
+                <!--<div th:replace="fragments/insecure"/>
+                <div th:replace="fragments/defaultauthn"/>
+                <div th:replace="fragments/cookies"/>
+                <div th:replace="fragments/serviceui"/>
+                <div th:replace="fragments/cas-resources-list" />
+                <div th:replace="fragments/loginProviders" /> --><h3>Note:</h3>
+<p align="justify">
+Bhuvan is now using "Central Authentication Service(CAS)" to enable Single Sign-On(SSO), you can use the same log-in credential if you are already registered with Bhuvan.</p>
+<p align="justify">
+Registration is optional in Bhuvan. However, some features require registration. Registered users are having privilege to share the data, collaborate with other bhuvanites, Forum etc.  If not registered, it only takes a few moments to register so it is recommended you do so.
+</p>
+            </div>
+            <div class="col-sm-12 col-md-6 col-md-pull-6">
+                <script>
+function Captcha(){
+     var alpha = new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z', 
+ 	    	'0','1','2','3','4','5','6','7','8','9');
+     var i;
+     for (i=0;i<6;i++){
+         var a = alpha[Math.floor(Math.random() * alpha.length)];
+         var b = alpha[Math.floor(Math.random() * alpha.length)];
+         var c = alpha[Math.floor(Math.random() * alpha.length)];
+         var d = alpha[Math.floor(Math.random() * alpha.length)];
+         var e = alpha[Math.floor(Math.random() * alpha.length)];
+         var f = alpha[Math.floor(Math.random() * alpha.length)];
+         var g = alpha[Math.floor(Math.random() * alpha.length)];
+                      }
+         var code = a + '' + b + '' + '' + c + '' + d + '' + e + ''+ f + '' + g;
+		 var ctx=document.getElementById('mainCaptcha').getContext('2d');
+		 ctx.font="bold 25px Verdana";
+		 ctx.clearRect(0,0,document.getElementById('mainCaptcha').width,document.getElementById('mainCaptcha').height);
+		 ctx.fillText(code,10,30);
+   		 document.getElementById("mainCaptcha").value = code;
+		 $('#fm1 input[name=submit]').attr('disabled', 'true');
+       }
+
+</script>
+
+<body onload="Captcha()">
+<div class="box" id="login">
+    <div class="login-header">
+	<h2><img src="/cas/images/login.ico" align="absmiddle" /><b>Bhuvan-Single Sign On</b></h2>
+         <!--<h2 th:text="#{cas.login.pagetitle}"></h2>
+        
+       <span class="fa-stack fa-2x hidden-xs">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
+        </span> --></div>
+
+    <form method="post" id="fm1" action="login">
+
+        <h2>Enter your Username and Password</h2>
+
+        <section class="row">
+            <label for="username"><span class="accesskey">U</span>sername:</label>
+
+            <div>
+                <input class="required"
+                       id="username"
+                       size="25"
+                       tabindex="1"
+                       type="text"
+                       accesskey="u"
+                       autocomplete="off" name="username" value=""/></div>
+        </section>
+
+        <section class="row">
+            <label for="password"><span class="accesskey">P</span>assword:</label>
+
+            <div>
+                <input class="required"
+                       type="password"
+                       id="password"
+                       size="25"
+                       tabindex="2"
+                       accesskey="p"
+                       autocomplete="off" name="password" value=""/><span id="capslock-on" style="display:none;">
+                    <p>
+                        <i class="fa fa-exclamation-circle"></i>
+                        <span>CAPSLOCK key is turned on!</span>
+                    </p>
+                </span>
+            </div>
+        </section>
+<section class="row captcha">
+<table><tr><td align="center"><canvas width="150px" height="50px" id="mainCaptcha" > </canvas></td><td> </td><td align="center" style="padding-top:10px;padding-left:15px"><i style="color:#6495ED;font-size:20px" class="fa fa-refresh fa-2" onclick="Captcha()"></i></td></table>
+</section>
+<section><div>
+	<label for="captcha">Enter <span class="accesskey">C</span>aptcha:</label>
+
+	
+	
+		<input 
+			   type="text"
+			   id="captcha"
+			   size="25"
+			   tabindex="2"
+				name="captcha"
+			   autocomplete="off"/><span id="captchaerror-on" style="display:none;">
+                  
+                      <p>  <i class="fa fa-exclamation-circle"></i>
+                        <span style="color:red">CAPTCHA validation failed.</span>
+                   
+                </span>
+	   </p>
+	</div>
+</section>
+        <section class="row check">
+            </section>
+
+        <section class="row check">
+            </section>
+
+        <section class="row btn-row">
+            <input type="hidden" name="execution" value="938486c1-6648-4701-adb6-f73731912595_ZXlKaGJHY2lPaUpJVXpVeE1pSjkuU25wV2NuTm1ZblpCZHpoUmNHMTRkeXROWW1Sa2JXbEJjMjlTVEZCQmMxRndTMng1YVRndk5EbEJheXRyWVdwc1drczVOMnd2VG1OMFZHaHpXbmhCUVdkdGRXbHBaMGhzVkV4UlJtRnFPVEpwT1VSQksxcHZTbGhRU2tFeFIzazVRVGszVDBKTFUxRmhPR2QxU0RGbVJ6bGhURVowU0hGNU1GSTViM0V5WWtsTFZWVkVZbk5hYzNCMFNrVlVWREpLV0UxcFFUZFBaVlIzWVVsVVZIZEhTSGxZYXpGSU1FbE5ibEowUmpsVGQzQndTR1pVZDBSRFpIcFBkMmsyYjB0cU5rRnNOWE5rWTBsSGNHRXJTSEUyT0RZNFlVOUZTMUpsTmxkVVJpOXpkMDlSTjFkWEwyOHpNVW8xVTBONFYxaFJSMUZ0V1VseFlpdDNkRzgxTDB4aFVrWTNiMFZsWWs5aGNTOVhkRmhUYUdKYWFEUTBjbnBqWjNKaFIyMVJZbVpDY1hKaWFUVjFSRFY2TDA5bk1YcGpSbTlYVW1oMWVYSTFaa0p1YTNwQlRHSlFOMHRITjBFeFdFeDNaM0poWldOclZrTklOVTlsYVhKak5rNXZSVE15YlhGb1VWRnVkRVZzTUVaTlltVk9hMWhUUVdGb2RsWk5iSGRzU0hBeldGazBObXRTYTA4elFtSTNjekZXVUZGQ1JUWkJSbFpaYTFseFNEaElkMGhpUlRKVlNYVXdjRzg1T0dsNWJIWk5hRVF2Vm14WlRtNHZUMU4wTHpRcksxSmtVR1JSUTBobGFYSjJUVFpIZVZKR1FTdFdkVXBrTmtsak0wNUtPWFowUzBkaE5XaE9PVTR2WTJFd2JFMVlUbXBoVURWU1RUYzNaVTR6WkRkMlJqSXliRWw0Y0N0NWNqQkxaRTkyYzJOa09HMXBjbEJXZDBvcmRXRkVPRVJ0ZGtoT1VVVXJNRUZWZERaVE9UaDFOakpIV1ROSk0ycFFNVzVMYTJvclpXRldNVXBUWkdSTlRtNDNTRlphYm5KUlMyODBZbmhPY0M5cGRXUnBlWGhRU3pKU09GUTFkMjVCU2xCVU1pdG5kMll6UVd0UFpGWkxZbVpvVFV0WmVDODBUVU50ZEZGdVpVWXhTQzlzU3paeldqQkZhbXR2ZVd3dmJrMVNhVUZTTDIxNGVHcEVVa2hyVFVZMGRGcFRXa2xOWm5GcFNITjBVbEpLZURVNFEwZEpZaXN6WjNRd1JETjZWU3RVVjBwamNVVXhaV1o0Wml0dmJGVnJTMnB5ZEU5Q1VuTkVNV2hzWnpadVlVbG9LemRMUzJ3MmQwaFlTMGdyYUhWWE4xZDJNMEZ6V1c1TFRHUnFWVVpzVVVWNldtbFBWa0phYlRGaFpEWlBObHBZUW5SS1RETlZWR2RUYVhSc05WcEVhRzFOV1d3MFFtbHJkMHRDT1RGWE5WSnplRTlVVGpaUVdVMVNXVWxLYlVWTFpTdFNabkJCYmtaMGJGQndUek5QYTI1UU5GQjZLMkppYTJobU1FaE9lR1p2TTFOTk4zQk1VbVl6TjNKdGN6aFpWbmQzTTJKRVFuQjBXR2N2Y25kM1dqRXpOMjFsZVZKcVlWWmphbmRsV2sxWGVVcHlTR3BsVFRGRFUzRjJhM1JVTDI1bVYxSXhPVEF5Tm5aNmIxRnpURVJ6ZW5vNVVVNVpTVlp5UTB4SE1qVktSRUU1TDFNclREWjVkemRhYWsxaFdXSmxWMjVuYWxCRlltOHpXbGRHT0hjeFN6QmlUMEp0VGt4NGVURmhRM2xvV0ZFck1qSmhkMmQ0Ykc1S1lrWXlVVE5SUkZWNlZtODFWVGxqV2t4RVQzVlRVQ3RETkhSck5YTkZialJaVkdObGRXRk9kSHBYZEhWTlRHcGpiVkl5ZDJsU05UTmlXbXhvV0N0MVRuVnNlRVpaT1hkaVRGSTBVMHhyVkdFMFQycDVibVpTZW0xRmNUVm5OSGxXVVhscVVtcGhObHBxVEVKRVUzZE9halJYT1VOeU5VVllMekUwYUVkWVoxbEtia0pVTVdGRWJucDVhRmx0WVhobWVYQlpVVmMwV1doT1NVSnJWWEZJU1haVk0wOXJjRzR2T1dwMlZITlJNVTVSVW0xVWMwRlVVelJyU2t4a1ZFSkNlbTlsU1VkR1dGWlFkbXBMT0ZsamRqWTVSVFpGVDFkNllXcFlWbEJIVDNBeVJWSnJZWFJITW1wTGRrTnhXWEpNYkZwV0swNXNVMDkzWTFSTVUxcG5iV0p5V0daeVZuZ3pSVUZRWXpSdEx6bEVPRUZQUWxwWVVDOVlTR2hqYldVMlp6Z3lZVms1VDJzNGNIVTRZeXRJVFRadVVsaFdiemxEVm5oamRXOW1Obk0wZWxOamIwbHFaM05DWWtSNk9UQlVkbFowWTI4NGRVOW5SV3hFVTBsNFdUZGxhbkkwYVZkeVQxRXZSREpWWWpoSmVGbG5USFpTVGt0UVpsWjZjVGxhVkhaSWRtSnFXWEpHU205dlowMHZTMFZ4U0ZoeEt6SnZXa0o1ZVZsNVFtNXBUMFZMTVdRemFuTjJiak5LVVdsamJ6VkZlVlp1YVU5V1ptVjNPRGczTW1sRk5WZ3dlRGxHVHpCMk9EWnVkSFpHTUhGaFRVeERWazg1VnpsR1ozTmhiVmhQVUdaelozSTJaWFJIYWtSaVJ6WlJXa1ZUZURoM2NWTjZjemt6VFVWS1NFc3hSRFJTV1N0VU0zRnphamR6WW1GVWRXVmtjRko0UWtGTFpGTkJjREZCWlZCdVlYa3JXbmR5VlVoNE9VSXdaRTVRWVV4S2J6QTNTSFpWTkVaMFJTOVZURTlKYkdKcE5FWjVObkZJYldkcGRHMWpTRmRhTWpkd1YzRnhZMlJoYkdSaVFrcG1TM0pVVDJ4SlMwNW1PV2RIVFZoMVNtSkVRbkJUV0RkamJHaFFlbXBHTlZGcVUxaERUVEJ0YzNkWllWVlJURmxFZVV0VGF6WmllbTFKTXk5cUwxZHJUbVpPTW5VeFdXTkVSVFEzU0RNMVlYZFFTRGxuZFU4MWVsaEVlRVpWUTBWM2JVbFVNMW9yVTJKQ1JETkdRakJxT1VKaGF6SkVNa0YzWnpoNFlqRk5ZVWREWVRkNGFFc3lWM0JwUVV4TlJEaGxZM2RMZG5kbE1tZDRiVUl4V2xKalRHaFphM1JFTTFwTVVXdFZTM056VDJ4WGRVbzJRVE5QYzBGa2Frb3JiRlpUTldwcmJVWkVTa2hqUTNSMksweFRkak4zYTNkeldFOHdRM0o2ZUM5YVVTc3pZMkpHUVRsNlRVSk9Rek0zY1U5SFdUbG1ha2syVkZsd2RqRXpkbkZGZVdJd1VYaDFUMXBrVWpGS1ZIUjRkMXAwWW1ONFpGbFliWEJzUkdrclQzTm1heXQyYW1ZMmFsSmhhWE5ZVURsNmVFSldRbmd2TVhsbVNTOHhSRWMyVW1GSFNuTlBhbmgxVkdwWU9UUjFlSGRIZEZwa01rRnhNMHAxTkd0MFRGUklXazQxWm13dlRFdFdjRVEyUmpKSlEwTnJUbmRHZFhFell5c3ZRbEl5ZG5oQ0wyNU1PQzl3YlhCUk1GUlNSRmN4VnlzMlQxcGtiVXR6ZUdJMmQyVjRaRk5HU0ZNNFVXMWthREpQYkhsUlJFNDVVRTVIVkVaelJURnpSM0Z2VVRWU1FtNUdhV3A0Uml0Q2JVaEtla3Q0YzFCak1ETlVWa1l4TVhGblNVdzFlbWR1YVhWdE1Vb3hlVkEzYVZCbGQzQnhTRlE0YUhWblVHMVdRalJGV1hGVE5VOXNaSEZ1U3pSVFIzVnJiUzlQY0UxeWFWRjBSSGhzYkhsUE4yNTJWekZxVmpnNGRFWkdVbXMzVEZsT1VtOUNTbmt3TkRrckwwb3pOV1JMZGtoclRHNWpVbmhQTUZkdFEyaHNSelYyVVROcFVDODFZMUo1Y25STkx6UmhVamswY1hWblRrbzBUVzgyUmsxM2VXSlJZa3BEZDNCNGVYWllaelpaT0dWMVJWQmlTalIzVVRKNWVGRjFXRU56VFhkSVFsaE5kVVZLZVdOWWQzZENPSFpoZGtoSmVuTkRNR0pSV0hOUFIyWTNUWFlyTHl0a05XMHplbVZ1UzJaMmRTdDNTbU5VTUdSc1VXdDVSV04wTURWS1ZrMTZUemhJWjBkS1REVnRXbFZ5UkdoMVNXNUphVFZHYVc4emJsWlRTMlJ3VW5RemNIWjBhMXBCYUZacGNVUkhaRGd5VFNzMVVuRXlUR3hqVG5KemVWcHpSMlE1YlVwemIxbExaV2x4V0doM2NFazFWbmt6TDJkRldFVXZja29yTUVkcVQyTmtiRGRhWlZaemRtMVdibGt3TURGTldVdGtlbk15UVRaM1dUVk9lbmRFVGk4MFNFZGpXVzB4TWpaTGRXTkljVnBXTDJkUVpreHNUbWRTYkZWcVkzZHVaMDR5YkVoaU5UTkxLMGxOTkRZMVJHZFhaRTVYVHpJdk1uSmxURGRQVEZBNFpHNDRkbEZ3YjJKdFVraEZWR3B6V0VsaU9FMHJTV1V2YjFGMFJFSkRMMUJHTmswMlFWZFJkblY2TVdOd2FFbG9SVTV2UjFwVEwwSTFkWGhGT0hoMGMweHBSWHBSTVVNMU1HRnFhM2RVYjBaU1ltTnFUU3N3TlZCWE5rMUhNVFpvWnpKWlNUUlRjek5RVEVNeVNWQktSVXByVGxsblRGTmhiVzFQTm1aVFdrMUlVMUY2VDBKU09FSlhWVVpFZUV4NGFHOTJObXBJWmpSU1dsZFpNRVUzTnk5TVMyNUxVbTVRYVRaMFMxUlhkMGxFVlcxblZEVm1NMEpUYnpVdlVWSkRNM3BwYjJKVGJEZDRNVVZoU21vcmVYbFJOR1oyWkcwNU1GZzRaVEE0U1VkWlEwRmlTMkZZWTFObmJIQkROblJYZEROc2QwVnNSelZLTWxOcVIxaFJkRGhNVW05b1NDdEpjSGhUWVVod05EWjFXR1lyU0VJMmIyOTJlVWRFWkZaMGFYUTNOWE5CVVc1aE1YRmxkVE5qYmpJNVNFeHJjbWhTVEdKRVJFeEtXbFpqVVVnMVJYQkRhWEJSVnpkVFVGQTRlWFpaT1d4YVNYWndkVWx6TDNGWWFYSkJOemR1T0RKQllUaEJjMUExVnpJdmRHaE1hWGRSZG1wa01qUnRWMmhKVGpSQ1JtUlpORzloU0hsVWVuaDJLekpITkU1UlEwNXdOVmhyVjBSNVN6aGFLMGd6ZFU1dk1EUk1ORUU5LkJFbGRkRUkxZVdoVHpSaUoxdWpzZjFxeVM4M255ZDdtSnlONVB0dm5RTHY0R21fX3ZYUE92N01uSkl2aU90bE9sUTBxYktDSHNPWG8tQkEtWll4MVNR"/><input type="hidden" name="_eventId" value="submit"/><input type="hidden" name="geolocation"/><input class="btn btn-submit btn-block"
+                   name="submit"
+                   accesskey="l"
+                   value="LOGIN"
+                   tabindex="6"
+                   type="submit" onclick="submitjs()"/></section>
+    </form>
+
+    <!--<div th:unless="${passwordManagementEnabled}">
+        <span class="fa fa-question-circle"></span>
+        <span th:utext="#{screen.pm.button.forgotpwd}"/>
+        <p/>
+    </div> 
+	<div>
+	<label for="othermodules" >	
+				 <a title="Change password?"   onclick="window.location='https://bhuvan-cas1.nrsc.gov.in/user_account_change_password.php?r='+window.location" >Change Password?</a> <br/>
+		         <a title="Forgot Password?" onclick="window.location='https://bhuvan-cas1.nrsc.gov.in/user_account_forgot_password.php?r='+window.location" >Forgot Password?</a> <br/>
+			     <a title="New User?" onclick="window.location='https://bhuvan-cas1.nrsc.gov.in/webclientprofile.php?r='+window.location" >New User?</a> <br/>
+				 <a title="Didn't receive the account activation link?" onclick="window.location='https://bhuvan-cas1.nrsc.gov.in/user_account_reactivate.php?r='+window.location"  >Didn't receive the account activation link?</a>
+					</label>
+	</div>--><div>
+	<label for="othermodules" >	
+				 <a title="Change password?"   onclick="window.location='https://bhuvan-cas1.nrsc.gov.in/user_account_change_password.php?r='+window.location" >Change Password?</a> <br/><a title="Forgot Password?" onclick="window.location='https://bhuvan-cas1.nrsc.gov.in/user_account_forgot_password.php?r='+window.location" >Forgot Password?</a> <br/><a title="New User?" onclick="window.location='https://bhuvan-cas1.nrsc.gov.in/WebClientProfile.php?r='+window.location" >New User?</a> <br/><a title="Didn't receive the account activation link?" onclick="window.location='https://bhuvan-cas1.nrsc.gov.in/user_account_reactivate.php?r='+window.location"  >Didn't receive the account activation link?</a>
+					</label>
+	</div>
+	
+    <script type="text/javascript">
+        var i = "One moment please..."
+        $("#fm1").submit(function () {
+            $(":submit").attr("disabled", true);
+            $(":submit").attr("value", i);
+            return true;
+        });
+    </script>
+    <div id="sidebar">
+    <!--<div class="sidebar-content">
+        <p th:utext="#{screen.welcome.security}"/>
+    </div> --></div>
+
+</div>
+
+            </div>
+        </div>
+    </div>
+    <footer>
+    <div id="copyright" class="container">
+        <!--<p th:utext="#{copyright}"></p> --><p>Powered by <a style="color:black" href="http://www.apereo.org/cas" target="_blank">
+            Apereo CAS
+            <!--<span th:text="${T(org.apereo.cas.util.CasVersion).getVersion()}"></span>
+            <span th:text="${T(org.apereo.cas.util.CasVersion).getDateTime()}"></span> </a> -->
+        </p>
+    </div>
+</footer>
+</div>
+<div><script src="/cas/webjars/headjs/1.0.3/head.min.js"></script>
+<script type="text/javascript" src="/cas/js/cas_07072021.js"></script>
+
+<script>
+head.ready(document, function () {
+    if (!window.jQuery) {
+    	var jqueryUrl = "\/cas\/webjars\/jquery\/1.12.4\/jquery.min.js"; 
+        head.load(jqueryUrl, loadjQueryUI);
+    } else {
+        notifyResourcesAreLoaded(resourceLoadedSuccessfully);
+    }
+});
+
+function loadjQueryUI() {
+	var jqueryUrl = "\/cas\/webjars\/jquery-ui\/1.12.1\/jquery-ui.min.js"; 
+	head.load(jqueryUrl, loadjQueryCookies);
+}
+
+function loadjQueryCookies() {
+	var jqueryUrl = "\/cas\/webjars\/jquery-cookie\/1.4.1-1\/jquery.cookie.js"; 
+	head.load(jqueryUrl, notifyResourcesAreLoaded(resourceLoadedSuccessfully));
+}
+
+function notifyResourcesAreLoaded(callback) {
+    if (typeof callback === "function") {
+        callback();
+    }
+}
+</script>
+
+
+</div>
+
+</body>
+</html>
