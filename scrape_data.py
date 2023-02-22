@@ -32,6 +32,31 @@ def download_file(url):
                 f.write(chunk)
     return local_filename
 
+def get_NASA_data_cloud_cover():
+    import requests
+
+    # url = "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=CLOUD_AMT&community=SB&longitude=79.1288&latitude=18.4386&start=20170101&end=20170201&format=JSON"
+    url =  "https://power.larc.nasa.gov/api/temporal/daily/point"
+    params = {
+        # "request": "execute",
+        "parameters":'CLOUD_AMT',
+        # "tempAverage": "DAILY",
+        # "parameters": "CLOUD_AMT",
+        "start": "20180101",
+        "end": "20181231",
+        "community": "SB",
+        # "tempAverage": "DAILY",
+        # "outputList": "JSON,ASCII",
+        "latitude": "17.3850",
+        "longitude": "78.4867",
+        "format":"JSON"
+    }
+
+    response = requests.get(url, params=params)
+
+    print(response.text)
+
 if __name__ == '__main__':
-    url = f'https://bhuvan-app3.nrsc.gov.in/isroeodatadownloadutility/tiledownloadnew_cfr_new.php?f=nices_cfri_20180104.zip&se=NICES&sf=cfri&u=hitansh123'
-    download_file(url)
+    # url = f'https://bhuvan-app3.nrsc.gov.in/isroeodatadownloadutility/tiledownloadnew_cfr_new.php?f=nices_cfri_20180104.zip&se=NICES&sf=cfri&u=hitansh123'
+    # download_file(url)
+    get_NASA_data_cloud_cover()
