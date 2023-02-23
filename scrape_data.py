@@ -1,62 +1,52 @@
 import requests
+import pandas as pd
+import json
 
-headers = {
-'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-'Accept-Encoding': 'gzip, deflate, br',
-'Accept-Language': 'en-US,en;q=0.9',
-'Connection': 'keep-alive',
-'Cookie': 'PHPSESSID=ST-1009379-P502nRU8oNTjSCdWmN8Tvd05Y6k-FT4',
-'Host': 'bhuvan-app3.nrsc.gov.in',
-'Referer': 'https://bhuvan-app3.nrsc.gov.in/data/download/tools/download1/downloadlink.php?id=nices_cfri_20180102&se=NICES&sf=cfri',
-'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Microsoft Edge";v="110"',
-'sec-ch-ua-mobile': '?0',
-'sec-ch-ua-platform': '"Windows"',
-'Sec-Fetch-Dest': 'iframe',
-'Sec-Fetch-Mode': 'navigate',
-'Sec-Fetch-Site': 'same-origin',
-'Upgrade-Insecure-Requests': '1',
-'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50'
-}
-
-
-def download_file(url):
-    local_filename = 'data/'+url.split('nices_cfri')[-1]
-    # NOTE the stream=True parameter below
-    with requests.get(url, stream=True, headers=headers) as r:
-        r.raise_for_status()
-        with open(local_filename, 'wb') as f:
-            for chunk in r.iter_content(chunk_size=8192): 
-                # If you have chunk encoded response uncomment if
-                # and set chunk_size parameter to None.
-                #if chunk: 
-                f.write(chunk)
-    return local_filename
-
-def get_NASA_data_cloud_cover():
-    import requests
-
-    # url = "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=CLOUD_AMT&community=SB&longitude=79.1288&latitude=18.4386&start=20170101&end=20170201&format=JSON"
+'''
+We are going to retrieve the following from https://power.larc.nasa.gov/
+- Avg Temp at 2m
+- RH at 2m
+- Wind Speed at 2m
+- Wind Direction at 2m
+- Midday Insolation
+- Surface Soil Moisture
+- Cloud Cover
+'''
+def get_nasa_data(coords: tuple, filename: str):
     url =  "https://power.larc.nasa.gov/api/temporal/daily/point"
+
     params = {
-        # "request": "execute",
-        "parameters":'CLOUD_AMT',
-        # "tempAverage": "DAILY",
-        # "parameters": "CLOUD_AMT",
-        "start": "20180101",
-        "end": "20181231",
-        "community": "SB",
-        # "tempAverage": "DAILY",
-        # "outputList": "JSON,ASCII",
-        "latitude": "17.3850",
-        "longitude": "78.4867",
-        "format":"JSON"
+        "parameters":'T2M,RH2M,WS2M,WD2M,ALLSKY_SFC_SW_DWN',
+        "start": "20150101",
+        "end": "20211231",
+        "community": "RE",
+        "latitude": str(coords[0]),
+        "longitude": str(coords[1]),
+        "user":"DAVEDownload",
+        "format":"JSON",
+        
     }
 
     response = requests.get(url, params=params)
+    json_data = json.loads(response.text)
+    json_data['properties']['parameter']
+    df = pd.DataFrame(json_data['properties']['parameter'])
 
-    print(response.text)
 
+    params['parameters'] = 'PRECIPITATIONCAL'
+    params['time-standard'] = 'utc'
+    response = requests.get(url,params=params)
+    json_data = json.loads(response.text)
+    json_data['properties']['parameter']
+    df2 = pd.DataFrame(json_data['properties']['parameter'])
+
+    df = pd.concat([df,df2],axis=1)
+    df.to_csv(f'data/{filename}.csv')
+
+    return df
+
+def get_climate_data():
+    KARIMNAGAR_COORDS = (18.44, 79.13)
+    get_nasa_data(KARIMNAGAR_COORDS, filename='karimnagar/karimnagar_nasa')
 if __name__ == '__main__':
-    # url = f'https://bhuvan-app3.nrsc.gov.in/isroeodatadownloadutility/tiledownloadnew_cfr_new.php?f=nices_cfri_20180104.zip&se=NICES&sf=cfri&u=hitansh123'
-    # download_file(url)
-    get_NASA_data_cloud_cover()
+    get_climate_data()
