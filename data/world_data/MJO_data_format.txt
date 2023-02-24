@@ -1,0 +1,7 @@
+loop through days starting from Jan 1 1979
+        iyear          imonth      iday         ihour   PC1 coefficient     PC2 coefficient      PC1+PC2 amplitude 
+
+endloop
+ 
+e.g.
+        1979           1           1             0       0.733495891     -0.138959274      0.746542633    

@@ -8,15 +8,15 @@ We are going to retrieve the following from https://power.larc.nasa.gov/
 - RH at 2m
 - Wind Speed at 2m
 - Wind Direction at 2m
-- Midday Insolation
+- Allsky Clearness Index
 - Surface Soil Moisture
-- Cloud Cover
+- Evapotranspiration rate
 '''
 def get_nasa_data(coords: tuple, filename: str):
     url =  "https://power.larc.nasa.gov/api/temporal/daily/point"
 
     params = {
-        "parameters":'T2M,RH2M,WS2M,WD2M,ALLSKY_SFC_SW_DWN',
+        "parameters":'T2M,RH2M,WS2M,WD2M,ALLSKY_KT,GWETTOP,EVLAND',
         "start": "20150101",
         "end": "20211231",
         "community": "RE",
@@ -46,7 +46,16 @@ def get_nasa_data(coords: tuple, filename: str):
     return df
 
 def get_climate_data():
-    KARIMNAGAR_COORDS = (18.44, 79.13)
-    get_nasa_data(KARIMNAGAR_COORDS, filename='karimnagar/karimnagar_nasa')
+    coords = {'karimnagar': (18.44, 79.13),
+              'warangal':(18.00,79.59),
+              'adilabad':(19.67,78.53),
+              'nizamabad':(18.67, 78.10),
+              'khammam':(17.25,80.15)}
+    
+    for i in coords:
+        get_nasa_data(coords=coords[i], filename=f'district_data/{i}')
+
+
+
 if __name__ == '__main__':
     get_climate_data()
