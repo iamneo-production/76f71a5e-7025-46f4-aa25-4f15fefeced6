@@ -22,7 +22,7 @@ def get_nasa_data(coords: tuple, filename: str):
     url =  "https://power.larc.nasa.gov/api/temporal/daily/point"
 
     params = {
-        "parameters":'T2M,RH2M,WS2M,WD2M,ALLSKY_KT,GWETTOP,EVLAND',
+        "parameters":'T2M,RH2M,WS2M,WD2M,ALLSKY_KT,GWETTOP,EVLAND,PS',
         "start": "20150101",
         "end": "20211231",
         "community": "RE",
